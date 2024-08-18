@@ -1,0 +1,89 @@
+﻿@model eCommerceApplication.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentCategoryId" class="control-label"></label>
+                <select asp-for="ParentCategoryId" class="form-control" asp-items="ViewBag.ParentCategoryId"></select>
+                <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            
+
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <div>
+                <h3>Products</h3>
+                <ul>
+                    @foreach (var product in Model.Products)
+                    {
+                        <li>@product.Name</li>
+                    }
+                </ul>
+
+                <!-- Options to add or remove products -->
+                <div class="form-group">
+                    <label for="addProduct">Add Product:</label>
+                    <select id="addProduct" name="addProduct">
+                        <!-- Populate with available products -->
+                        @foreach (var product in ViewBag.AvailableProducts)
+                        {
+                            <option value="@product.ID">@product.Name</option>
+                        }
+                    </select>
+                    <button type="submit" name="action" value="AddProduct">Add</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="removeProduct">Remove Product:</label>
+                    <select id="removeProduct" name="removeProduct">
+                        <!-- Populate with current products -->
+                        @foreach (var product in Model.Products)
+                        {
+                            <option value="@product.ID">@product.Name</option>
+                        }
+                    </select>
+                    <button type="submit" name="action" value="RemoveProduct">Remove</button>
+                </div>
+
+                <input type="hidden" name="categoryId" value="@Model.ID" />
+
+            </div>
+
+        </form>
+    </div>
+
+
+
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@Model.ParentCategoryId">Back to List< ></a>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

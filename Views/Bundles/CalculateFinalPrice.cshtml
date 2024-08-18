@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Final Price";
+}
+
+<h2>Final Price</h2>
+
+@if (ViewBag.FinalPrice != null)
+{
+        <p>Final Price after Discount: $@ViewBag.FinalPrice</p>
+}
+else
+{
+        <p>Error calculating final price.</p>
+}
+<div>
+    <a asp-action="Index" asp-route-ID="@ViewBag.FinalPrice">Back to List</a>
+</div>

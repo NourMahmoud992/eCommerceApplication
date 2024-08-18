@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+ <form asp-action="UpdateProducts" method="post">
+  <div>
+    <h3>Products</h3>
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            <li>@product.Name</li>
+        }
+    </ul>
+    </div>
+    <!-- Options to add or remove products -->
+    <div class="checkbox">
+        <label for="addProduct">Add Product:</label>
+        <select id="addProduct" name="addProduct" multiple>
+            <!-- Populate with available products -->
+            @foreach (var product in ViewBag.AvailableProducts)
+            {
+                <option value="@product.ID">@product.Name</option>
+            }
+        </select>
+        <button type="submit" name="action" value="AddProduct" class="btn btn-primary">Add</button>
+    </div>
+
+    <div class="checkbox">
+        <label for="removeProduct">Remove Product:</label>
+        <select id="removeProduct" name="removeProduct" multiple>
+            <!-- Populate with current products -->
+            @foreach (var product in Model.Products)
+            {
+                <option value="@product.ID" >@product.Name</option>
+            }
+        </select >
+        <button type="submit" name="action" value="RemoveProduct" class="btn btn-primary">Remove</button>
+    </div>
+
+    <input type="hidden" name="categoryId" value="@Model.ID" />
+
+</form>

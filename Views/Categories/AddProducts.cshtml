@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CategoryViewModel
+
+<h2>Add Products to Category: @Model.CategoryName</h2>
+
+@using (Html.BeginForm("AddProducts", "Categories", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.CategoryId)
+
+    <div class="form-group">
+        <label for="SelectedProductIds">Select Products to Add</label><br />
+        @foreach (var product in Model.AvailableProducts)
+        {
+            <input type="checkbox" id="SelectedProductIds" name="SelectedProductIds" value="@product.ID" />
+            <label>@product.Name</label>
+
+            <br />
+        }
+    </div>
+
+    <button type="submit">Add Products</button>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}

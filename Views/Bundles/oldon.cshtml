@@ -1,0 +1,26 @@
+﻿@model BundleViewModel
+
+<h2>Create Bundle</h2>
+
+@using (Html.BeginForm())
+{
+        <div class="form-group">
+            <label for="bundleName">Bundle Name:</label>
+            <input type="text" id="bundleName" name="bundleName" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="discount">Discount (%):</label>
+            <input type="number" id="discount" name="discount" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <!-- Include the partial view for selecting products -->
+    @Html.Partial("_SelectProducts", Model)
+
+        <button type="submit" class="btn btn-primary">Create Bundle</button>
+}

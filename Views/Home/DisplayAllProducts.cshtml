@@ -1,0 +1,64 @@
+﻿@model eCommerceApplication.Models.ProductCategoryViewModel
+
+@*@using (Html.BeginForm("DisplayAllProducts", "Home", FormMethod.Post))
+{
+    <label for="SelectedCategories">Select Categories:</label>
+    <br />
+    @Html.ListBoxFor(model => model.SelectedCategories,
+                     new SelectList(Model.Categories, "Id", "Name"),
+                     new { multiple = "multiple" })
+    <button type="submit">Show Products</button>
+}*@
+@*<form method="post" action="@Url.Action("DisplayAllProducts", "Home")">
+    <label for="SelectedCategories">Select Categories:</label><br />
+    <select id="SelectedCategories" name="SelectedCategories" multiple>
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category.ID">@category.Name</option>
+        }
+    </select>
+    <button type="submit">Show Products</button>
+</form>*@
+<p>
+    <a asp-action="Create" asp-controller="Products">Create New</a>
+</p>
+<form method="post" action="@Url.Action("DisplayAllProducts", "Home")">
+    <label>Select Categories:</label><br />
+    @foreach (var category in Model.Categories)
+    {
+        <div>
+            <input type="checkbox" id="category-@category.ID" name="SelectedCategories" value="@category.ID">
+            <label for="category-@category.ID">@category.Name</label>
+        </div>
+    }
+    <button type="submit" class= "btn btn-danger">Show Products </button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Created Date</th>
+            <th>SKU</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.CreatedDate</td>
+                <td>@product.SKU</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Products" asp-route-id="@product.ID">Edit</a> |
+                    <a asp-action="Details" asp-controller="Products" asp-route-id="@product.ID">Details</a> |
+                    <a asp-action="Delete" asp-controller="Products" asp-route-id="@product.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
