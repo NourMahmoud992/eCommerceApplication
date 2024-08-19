@@ -14,7 +14,7 @@ namespace eCommerceApplication.Data
         public virtual IQueryable<Product> GetAllProducts()
         {
             throw new InvalidOperationException();
-        }
+        } 
         public DbSet<Product>? Products { get; set; }
         public DbSet<ParentCategory>? ParentCategories { get; set; }
         public DbSet<Category>? Categories { get; set; }
